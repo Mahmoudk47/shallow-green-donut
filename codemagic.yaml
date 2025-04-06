@@ -11,15 +11,12 @@ workflows:
       - name: Install dependencies
         script: |
           npm install
-      # Remove or comment out the Run tests step
-      # - name: Run tests
+      # Remove the iOS build step
+      # - name: Build iOS
       #   script: |
-      #     npm test
-      - name: Build iOS
-        script: |
-          cd ios
-          pod install
-          xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -sdk iphonesimulator -derivedDataPath build
+      #     cd ios
+      #     pod install
+      #     xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -sdk iphonesimulator -derivedDataPath build
       - name: Build Android
         script: |
           cd android
