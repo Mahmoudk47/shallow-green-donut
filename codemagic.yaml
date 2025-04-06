@@ -1,0 +1,28 @@
+workflows:
+  react_native_workflow:
+    name: React Native App Workflow
+    environment:
+      vars:
+        NODE_VERSION: 14.17.0
+        REACT_NATIVE_CLI: 2.0.1
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+      - name: Run tests
+        script: |
+          npm test
+      - name: Build iOS
+        script: |
+          cd ios
+          pod install
+          xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -sdk iphonesimulator -derivedDataPath build
+      - name: Build Android
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - build/ios/Release-iphonesimulator/*.app
+      - android/app/build/outputs/apk/release/*.apk
